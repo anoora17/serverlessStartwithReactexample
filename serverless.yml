@@ -6,7 +6,7 @@ plugins:
 # Enable auto-packing of external modules
 custom:
  webpackIncludeModules: true
- packagePath: '../package.json'
+
 provider:
  name: aws
  runtime: nodejs6.10
@@ -30,7 +30,7 @@ access DynamoDB.
 functions:
  # Defines an HTTP API endpoint that calls the main function in
 create.js
- # - path: url path is /resume
+  - path: url path is /resume
  # - method: POST request
  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser
 cross
@@ -47,7 +47,7 @@ cross
 
  get:
  # Defines an HTTP API endpoint that calls the main function in
-get.js
+   get.js
  # - path: url path is /notes/{id}
  # - method: GET request
  handler: get.main
