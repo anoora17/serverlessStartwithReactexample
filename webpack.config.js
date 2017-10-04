@@ -1,7 +1,5 @@
 
-const debug = process.env.NODE_ENV !== "production";
-const slsw = require("serverless-webpack");
-const nodeExternals = require("webpack-node-externals");
+
 
 const slsw = require("serverless-webpack");
 const nodeExternals = require("webpack-node-externals");
@@ -22,19 +20,7 @@ loader: [
   }
     ]
   }
-},
-output: {
-    libraryTarget: 'commonjs',
-    path: path.join(__dirname, '.webpack'),
-    filename: './handler.js'
-  },
-  plugins: debug ? [] : [
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+}
   
-  ],
-};
-
 
 //ref:https://github.com/serverless-heaven/serverless-webpack

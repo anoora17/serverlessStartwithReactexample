@@ -7,7 +7,7 @@ export async function main(event, context, callback) {
 // the userID is an Id that been created in cognito service that we already configured in advance on aws console, you can use any othe provider 
   const data = JSON.parse(event.body);
   const params = {
-    TableName: "resume",
+    TableName: "resumes",
     Item: {
       userId: event.requestContext.identity.cognitoIdentityId,
       resumeId: uuid.v1(), // assigne uniqe id to know more read devtools dynmoDB aws sdk javascript 

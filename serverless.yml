@@ -1,85 +1,93 @@
-service:resume-app
+service: resume-app
 
 # Use serverless-webpack plugin to transpile ES6/ES7
 plugins:
- - serverless-webpack:
+  - serverless-webpack
+
 # Enable auto-packing of external modules
 custom:
- webpackIncludeModules: true
+  webpackIncludeModules: true
 
 provider:
- name: aws
- runtime: nodejs6.10
- stage: prod
- region: us-east-1
- # 'iamRoleStatement' defines the permission policy for the Lambda
-function.
- # In this case Lambda functions are granted with permissions to
-access DynamoDB.
- iamRoleStatements:
- - Effect: Allow
- Action:
- - dynamodb:DescribeTable
- - dynamodb:Query
- - dynamodb:Scan
- - dynamodb:GetItem
- - dynamodb:PutItem
- - dynamodb:UpdateItem
- - dynamodb:DeleteItem
- Resource: "arn:aws:dynamodb:us-east-1:*:*"
+  name: aws
+  runtime: nodejs6.10
+  stage: prod
+  region: us-east-1
+
+  # 'iamRoleStatement' defines the permission policy for the Lambda function.
+  # In this case Lambda functions are granted with permissions to access DynamoDB.
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
+
 functions:
- # Defines an HTTP API endpoint that calls the main function in
-create.js
-  - path: url path is /resume
- # - method: POST request
- # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser
-cross
- # domain api call
- # - authorizer: authenticate using the AWS IAM role
- create:
- handler: create.main
- events:
- - http:
- path: resume
- method: post
- cors: true
- authorizer: aws_iam
+  # Defines an HTTP API endpoint that calls the main function in create.js
+  # - path: url path is /notes
+  # - method: POST request
+  # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
+  #     domain api call
+  # - authorizer: authenticate using the AWS IAM role
+  create:
+    handler: create.main
+    events:
+      - http:
+          path: resumes
+          method: post
+          cors: true
+          authorizer: aws_iam
 
- get:
- # Defines an HTTP API endpoint that calls the main function in
-   get.js
- # - path: url path is /notes/{id}
- # - method: GET request
- handler: get.main
- events:
- - http:
- path: resume/{id}
- method: get
- cors: true
- authorizer: aws_iam
+  get:
+    # Defines an HTTP API endpoint that calls the main function in get.js
+    # - path: url path is /notes/{id}
+    # - method: GET request
+    handler: get.main
+    events:
+      - http:
+          path: resumes/{id}
+          method: get
+          cors: true
+          authorizer: aws_iam
 
- list:
- # Defines an HTTP API endpoint that calls the main function in
-list.js
- # - path: url path is /notes
- # - method: GET request
- handler: list.main
- events:
- - http:
- path: resume
- method: get
- cors: true
- authorizer: aws_iam
-update:
- # Defines an HTTP API endpoint that calls the main function in
-update.js
- # - path: url path is /notes/{id}
- # - method: PUT request
- handler: update.main
- events:
- - http:
- path: resume/{id}
- method: put
- cors: true
- authorizer: aws_iam
-#ref:https://github.com/serverless-heaven/serverless-webpack/tree/master/examples
+  list:
+    # Defines an HTTP API endpoint that calls the main function in list.js
+    # - path: url path is /notes
+    # - method: GET request
+    handler: list.main
+    events:
+      - http:
+          path: resumes
+          method: get
+          cors: true
+          authorizer: aws_iam
+
+  update:
+    # Defines an HTTP API endpoint that calls the main function in update.js
+    # - path: url path is /notes/{id}
+    # - method: PUT request
+    handler: update.main
+    events:
+      - http:
+          path: resumes/{id}
+          method: put
+          cors: true
+          authorizer: aws_iam
+
+  delete:
+    # Defines an HTTP API endpoint that calls the main function in delete.js
+    # - path: url path is /notes/{id}
+    # - method: DELETE request
+    handler: delete.main
+    events:
+      - http:
+          path: resumes/{id}
+          method: delete
+          cors: true
+          authorizer: aws_iam
