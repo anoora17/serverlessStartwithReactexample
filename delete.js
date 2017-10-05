@@ -1,22 +1,25 @@
-import * as dynamoDbLib from "./libs/dynamodb-lib";
+import * as dynamoDbLib from "./libs/dynmodb-lib";
 import { success, failure } from "./libs/response-lib";
-export async function main(event, context, callback) {
- const params = {
- TableName: "resume",
- // 'Key' defines the partition key and sort key of the item to be
-removed
+export function main(event, context, callback) {
+ const params =  {
+ TableName: "resumes",
+ // 'Key' defines the partition key and sort key of the item to beremoved
  // - 'userId': Identity Pool identity id of the authenticated user
  // - 'resumeId': path parameter
  Key: {
- userId: event.requestContext.identity.cognitoIdentityId,
- resumeId: event.pathParameters.id
- }
- };
+		 userid: event.requestContext.identity.cognitoIdentityId,
+		 resumeid: event.pathParameters.id
+     }
+   };
  try {
- const result = await dynamoDbLib.call("delete", params);
- callback(null, success({ status: true }));
+		 const result =  dynamoDbLib.call("delete", params);
+		 callback(null, success({ status: true }));
  } catch (e) {
- callback(null, failure({ status: false }));
- }
+
+ 		callback(null, failure({ status: false }));
+   }
 }
-This makes a DynamoDB delete call with 
+
+
+
+//This makes a DynamoDB delete call with 
